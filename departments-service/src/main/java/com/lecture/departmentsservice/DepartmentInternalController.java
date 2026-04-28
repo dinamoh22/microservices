@@ -1,5 +1,6 @@
 package com.lecture.departmentsservice;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ public class DepartmentInternalController {
         this.departmentService = departmentService;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/summary")
     public DepartmentSummaryResponse getSummary(@PathVariable Long id) {
         Department department = departmentService.findByIdOrThrow(id);
